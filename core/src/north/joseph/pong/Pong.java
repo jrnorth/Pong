@@ -1,26 +1,24 @@
 package north.joseph.pong;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import north.joseph.pong.helpers.AssetManager;
+import north.joseph.pong.screens.GameScreen;
 
-public class Pong extends ApplicationAdapter {
+import com.badlogic.gdx.Game;
+
+public class Pong extends Game {
 	@Override
-	public void create () {
-
+	public void create() {
+		AssetManager.load();
+		setScreen(new GameScreen());
 	}
 	
 	@Override
 	public void dispose() {
-
+		AssetManager.dispose();
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		super.render();
 	}
 }
