@@ -1,7 +1,7 @@
 package north.joseph.pong;
 
 import north.joseph.pong.helpers.AssetManager;
-import north.joseph.pong.screens.GameScreen;
+import north.joseph.pong.screens.MainMenuScreen;
 
 import com.badlogic.gdx.Game;
 
@@ -9,7 +9,7 @@ public class Pong extends Game {
 	@Override
 	public void create() {
 		AssetManager.load();
-		setScreen(new GameScreen());
+		setScreen(new MainMenuScreen(this));
 	}
 	
 	@Override
