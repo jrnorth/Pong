@@ -44,8 +44,9 @@ public class Paddle {
 		position.y = yPos;
 	}
 	
-	public void reset() {
-		
+	public void reset(int xPos, int yPos) {
+		position.set(xPos, yPos);
+		velocity.set(0, 0);
 	}
 	
 	public void moveUp() {

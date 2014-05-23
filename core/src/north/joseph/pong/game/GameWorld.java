@@ -6,6 +6,7 @@ import north.joseph.pong.gameobjects.Paddle;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameWorld {
 	// Constants
@@ -14,6 +15,7 @@ public class GameWorld {
 	public static final int GAME_HEIGHT = 240;
 	public static final int LEFT_PADDLE_OFFSET = 30;
 	public static final int RIGHT_PADDLE_OFFSET = 40;
+	public static final long THREE_SECONDS = 3000000000L;
 	
 	// Objects
 	private static Paddle leftPaddle;
@@ -27,6 +29,7 @@ public class GameWorld {
 	private int playerScore;
 	private int computerScore;
 	private boolean didPlayerWin;
+	private long pointEndTime;
 	
 	// Flags
 	private GameState currentState;
@@ -67,6 +70,12 @@ public class GameWorld {
 		case READY:
 			break;
 		case BALL_OUT_OF_BOUNDS:
+			if (TimeUtils.timeSinceNanos(pointEndTime) > THREE_SECONDS) {
+				reset();
+				currentState = GameState.READY;
+			}
+			break;
+		case FINISHED:
 			break;
 		}
 	}
@@ -101,12 +110,14 @@ public class GameWorld {
 			}
 			didPlayerWin = true;
 		}
+		pointEndTime = TimeUtils.nanoTime();
 	}
 	
 	public void reset() {
 		ball.reset();
-		leftPaddle.reset();
-		rightPaddle.reset();
+		int midpointPaddleY = (int) ((GAME_HEIGHT / 2) - (Paddle.PADDLE_HEIGHT / 2));
+		leftPaddle.reset(LEFT_PADDLE_OFFSET, midpointPaddleY);
+		rightPaddle.reset(GAME_WIDTH - RIGHT_PADDLE_OFFSET, midpointPaddleY);
 	}
 	
 	public Paddle getLeftPaddle() {
