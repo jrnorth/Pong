@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Ball {
 
     // Constants
-
     private static final int X_SPEED = 200;
     private static final int MAX_Y_SPEED = 200;
     public static final float BALL_RADIUS = 7.5f;

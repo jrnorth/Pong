@@ -19,10 +19,13 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
 public class MainMenuScreen implements Screen {
+
+    // Constants
     private final int BUTTON_WIDTH = 100;
     private final int BUTTON_HEIGHT = 30;
     private final int BUTTON_GAP = 10;
 
+    // Objects
     private Game game;
     private Stage stage;
     private Label titleLabel;
@@ -33,7 +36,7 @@ public class MainMenuScreen implements Screen {
     private ScalingViewport viewport;
 
     public MainMenuScreen(Game game) {
-            this.game = game;
+        this.game = game;
     }
 
     @Override
@@ -66,8 +69,8 @@ public class MainMenuScreen implements Screen {
         playButton.setHeight(BUTTON_HEIGHT);
         playButton.setPosition((GameWorld.GAME_WIDTH - BUTTON_WIDTH) / 2, (GameWorld.TOTAL_HEIGHT - BUTTON_HEIGHT) / 2);
         playButton.addListener(new ClickListener() {
-            @Override 
-            public void clicked(InputEvent event, float x, float y){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new GameScreen());
             }
         });
@@ -88,27 +91,26 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void hide() {
-            // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void pause() {
-            // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void resume() {
-            // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void dispose() {
-            // TODO Auto-generated method stub
-            stage.dispose();
-            batch.dispose();
+        // TODO Auto-generated method stub
+        stage.dispose();
+        batch.dispose();
     }
-
 }
