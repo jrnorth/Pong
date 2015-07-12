@@ -1,22 +1,23 @@
 package north.joseph.pong.game;
 
-import north.joseph.pong.gameobjects.Ball;
-import north.joseph.pong.gameobjects.Paddle;
-import north.joseph.pong.helpers.AssetManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import north.joseph.pong.gameobjects.Ball;
+import north.joseph.pong.gameobjects.Paddle;
+import north.joseph.pong.helpers.AssetManager;
 
 public class GameRenderer {
 
     private OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
+    private GlyphLayout glyphLayout;
 
     private GameWorld world;
     private Ball ball;
@@ -39,6 +40,8 @@ public class GameRenderer {
         ball = world.getBall();
         leftPaddle = world.getLeftPaddle();
         rightPaddle = world.getRightPaddle();
+
+        glyphLayout = new GlyphLayout();
     }
 
     public void render(float delta) {
@@ -63,26 +66,31 @@ public class GameRenderer {
         batch.begin();
         // Draw scores
         String playerScore = "" + world.getPlayerScore();
-        float scoreWidth = AssetManager.scoreFont.getBounds(playerScore).width;
+        glyphLayout.setText(AssetManager.scoreFont, playerScore);
+        float scoreWidth = glyphLayout.width;
         AssetManager.scoreFont.draw(batch, playerScore, GameWorld.GAME_WIDTH / 4 - scoreWidth / 2, 265);
         String computerScore = "" + world.getComputerScore();
-        scoreWidth = AssetManager.scoreFont.getBounds(computerScore).width;
+        glyphLayout.setText(AssetManager.scoreFont, computerScore);
+        scoreWidth = glyphLayout.width;
         AssetManager.scoreFont.draw(batch, computerScore, 3 * GameWorld.GAME_WIDTH / 4 - scoreWidth / 2, 265);
 
         if (world.isReady()) {
-            float messageWidth = AssetManager.font.getBounds(touchToBegin).width;
-            float messageHeight = AssetManager.font.getBounds(touchToBegin).height;
+            glyphLayout.setText(AssetManager.font, touchToBegin);
+            float messageWidth = glyphLayout.width;
+            float messageHeight = glyphLayout.height;
             // Draw text.
             AssetManager.font.draw(batch, touchToBegin, (GameWorld.GAME_WIDTH - messageWidth) / 2, (GameWorld.GAME_HEIGHT + messageHeight) / 2);
         } else if (world.isBallOutOfBounds()) {
             String message = world.didPlayerWin() ? "Player wins the point" : "Computer wins the point";
-            float messageWidth = AssetManager.font.getBounds(message).width;
-            float messageHeight = AssetManager.font.getBounds(message).height;
+            glyphLayout.setText(AssetManager.font, message);
+            float messageWidth = glyphLayout.width;
+            float messageHeight = glyphLayout.height;
             AssetManager.font.draw(batch, message, (GameWorld.GAME_WIDTH - messageWidth) / 2, (GameWorld.GAME_HEIGHT + messageHeight) / 2);
         } else if (world.isFinished()) {
             String message = world.didPlayerWin() ? "Player wins" : "Computer wins";
-            float messageWidth = AssetManager.font.getBounds(message).width;
-            float messageHeight = AssetManager.font.getBounds(message).height;
+            glyphLayout.setText(AssetManager.font, message);
+            float messageWidth = glyphLayout.width;
+            float messageHeight = glyphLayout.height;
             AssetManager.font.draw(batch, message, (GameWorld.GAME_WIDTH - messageWidth) / 2, (GameWorld.GAME_HEIGHT + messageHeight) / 2);
         }
         batch.end();

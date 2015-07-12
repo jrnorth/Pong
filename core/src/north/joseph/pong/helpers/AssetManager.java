@@ -12,14 +12,15 @@ public class AssetManager {
 
     public static void load() {
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        font.setScale(.5f, .5f);
+        font.getData().setScale(.5f, .5f);
         scoreFont = new BitmapFont(Gdx.files.internal("text.fnt"));
-        scoreFont.setScale(.36f, .36f);
+        scoreFont.getData().setScale(.36f, .36f);
         uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
     }
 
     public static void dispose() {
         font.dispose();
         scoreFont.dispose();
+        uiSkin.dispose();
     }
 }
